@@ -11,7 +11,7 @@
    *
    * @todo: Create styles from CSS file names.
    */
-  CKEDITOR.dialog.add('admonitionDialog', function (editor) {
+  CKEDITOR.dialog.add('admonition', function (editor) {
     // var lang = editor.lang.admonition;
 
     return {

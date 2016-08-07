@@ -20,7 +20,7 @@
       editor.widgets.add('admonition', {
         path: path,
         button: 'Add an admonition to the reader',
-        dialog: 'admonitionDialog',
+        dialog: 'admonition',
         //Get the HTML template from the editor object.
         template: editor.config.admonition_template,
         //Define the editable pieces of the template.
@@ -31,10 +31,10 @@
         },
         //Add to content that ACF will allow.
         allowedContent:
-            'div(!admonition,!admonition-*); '
-              + 'img(admonition-icon);'
+            'div(!admonition,!admonition-*);'
+              + 'img(!admonition-*);'
               + 'div(!admonition-content);',
-        requiredContent: 'div(!admonition)',
+        requiredContent: 'div(admonition)',
         upcast: function( element ) {
           return element.name == 'div' && element.hasClass( 'admonition' );
         },
@@ -128,7 +128,7 @@
         label: 'Admonition',
         command: 'admonition'
       } );
-      CKEDITOR.dialog.add( 'admonitionDialog', this.path + 'dialogs/admonition.js' );
+      CKEDITOR.dialog.add( 'admonition', this.path + 'dialogs/admonition.js' );
       function capitalizeFirstLetter(value) {
         return value.charAt(0).toUpperCase() + value.slice(1);
       }
