@@ -18,8 +18,10 @@
 
       // Basic properties of the dialog window: title, minimum size.
       title: "Admonition", //lang.dialogTitle,
-      minWidth: 400,
-      minHeight: 400,
+      minWidth: 200,
+      maxWidth: 480,
+      minHeight: 200,
+      maxHeight: 400,
 
       // Dialog window contents definition.
       contents: [
@@ -32,7 +34,17 @@
 
           // The tab contents.
           elements: [
-
+            {
+              //Explain what an admonition is.
+              type: 'html',
+              html: 'An admonition is advice to the reader, like a hint, '
+                + 'or a warning of something that might go wrong.'
+            },
+            {
+              //Space below GUI control. Couldn't get classes to do the job.
+              type: 'html',
+              html: ' &nbsp; '
+            },
             {
               //Radio buttons for the style of the admonition.
               type: 'radio',
@@ -56,11 +68,19 @@
                   this.setValue(widget.data.style);
                 }
               },
+              // onChange: function(evnt) {
+              //   alert('fish!');
+              // },
               commit: function( widget ) {
                 //Called when saving changes.
                 //Set the widget's style value, depending on the radio button's value.
                 widget.setData( 'style', this.getValue() );
               }
+            },
+            {
+              //Space below GUI control. Couldn't get classes to do the job.
+              type: 'html',
+              html: ' &nbsp; '
             },
             {
               type: 'text',
@@ -75,6 +95,12 @@
                   this.setValue(widget.data.width);
                 }
               },
+              // onChange: function(evnt) {
+              //   alert('catfish!');
+              // },
+              // onKeyPress: function(evnt) {
+              //   alert('dogfish!');
+              // },
               validate: function() {
                 var value = this.getValue();
                 var dataOk = true;
@@ -87,6 +113,15 @@
                 widget.setData( 'width', this.getValue() );
               }
             }, //End width field
+            {
+              type: 'html',
+              html: 'Note: 100% doesn\'t work well with many themes. Try 95% instead.'
+            },
+            {
+              //Space below GUI control. Couldn't get classes to do the job.
+              type: 'html',
+              html: ' &nbsp; '
+            },
             {
               type: 'radio',
               id: 'admonitionAlignment',

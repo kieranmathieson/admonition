@@ -1,3 +1,5 @@
-div.admonition {
-    border-color: red;
+div.admonition-warning {
+    border-color: #E00;
+    border-style: solid;
+    border-width: thin;
 }

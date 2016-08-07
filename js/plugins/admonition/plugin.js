@@ -12,6 +12,11 @@
     init: function (editor) {
       var path = this.path;
       editor.addContentsCss( this.path + 'css/base.css' );
+      editor.addContentsCss( this.path + 'css/extra.css' );
+      editor.addContentsCss( this.path + 'css/hint.css' );
+      editor.addContentsCss( this.path + 'css/note.css' );
+      editor.addContentsCss( this.path + 'css/troubleshoot.css' );
+      editor.addContentsCss( this.path + 'css/warning.css' );
       editor.widgets.add('admonition', {
         path: path,
         button: 'Add an admonition to the reader',
@@ -53,19 +58,26 @@
             this.setData('align', 'center');
           }
           //Admonition style.
-          if ( this.element.hasClass( 'attention' ) ) {
-            this.setData('style', 'attention');
+          if ( this.element.hasClass( 'admonition-extra' ) ) {
+            this.setData('style', 'extra');
           }
-          if ( this.element.hasClass( 'warning' ) ) {
-            this.setData('style', 'warning');
+          if ( this.element.hasClass( 'admonition-hint' ) ) {
+            this.setData('style', 'hint');
           }
-          if ( this.element.hasClass( 'note' ) ) {
+          if ( this.element.hasClass( 'admonition-note' ) ) {
             this.setData('style', 'note');
+          }
+          if ( this.element.hasClass( 'admonition-troubleshoot' ) ) {
+            this.setData('style', 'troubleshoot');
+          }
+          if ( this.element.hasClass( 'admonition-warning' ) ) {
+            this.setData('style', 'warning');
           }
 
         }, //End init().
         /**
-         * Called when data is returned by the dialog.
+         * Called when initialing widget display in CK, and when
+         * data is returned by the dialog.
          */
         data: function() {
           //Get the icon element.
@@ -101,7 +113,8 @@
           }
           if ( icon && this.data.style ) {
             //Show the right icon.
-            icon.setAttribute('src', this.path + 'icons/' + this.data.style + '.png');
+            icon.setAttribute('src', this.path + 'icons/' + this.data.style + '.png')
+                .setAttribute('title', capitalizeFirstLetter(this.data.style));
             icon.setAttribute('alt', capitalizeFirstLetter(this.data.style));
           }
         }

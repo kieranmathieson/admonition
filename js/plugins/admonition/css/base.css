@@ -1,7 +1,9 @@
 div.admonition {
-    background-color: #FFFFBB;
+    background-color: #ffffdd;
     border-radius: 10px;
     padding: 10px;
+    overflow: auto;
+    box-shadow: 2px 2px 1px #eee;
 }
 img.admonition-icon {
     margin: 0.2rem;
@@ -12,10 +14,14 @@ div.admonition-content {
 }
 div.admonition-left {
     float: left;
+    margin-right: 1rem;
 }
 div.admonition-right {
     float: right;
+    margin-left: 1rem;
 }
 div.admonition-center {
-    margin: 0 auto;
+    margin: 1rem auto;
 }
+
+
