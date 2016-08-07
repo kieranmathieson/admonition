@@ -21,10 +21,8 @@
         path: path,
         button: 'Add an admonition to the reader',
         dialog: 'admonitionDialog',
-        template: '<div class="admonition">' +
-        '<img class="admonition-icon">' +
-        '<div class="admonition-content"><p>Content...</p></div>' +
-        '</div>',
+        //Get the HTML template from the editor object.
+        template: editor.config.admonition_template,
         //Define the editable pieces of the template.
         editables: {
           content: {
@@ -33,21 +31,25 @@
         },
         //Add to content that ACF will allow.
         allowedContent:
-            'div(!admonition){width}; img(admonition-icon);'
-              + 'div(!admonition-content); h2(!admonition-title)',
-        requiredContent: 'div(admonition)',
+            'div(!admonition,!admonition-*); '
+              + 'img(admonition-icon);'
+              + 'div(!admonition-content);',
+        requiredContent: 'div(!admonition)',
         upcast: function( element ) {
           return element.name == 'div' && element.hasClass( 'admonition' );
         },
         init: function() {
-          var width = this.element.getStyle( 'width' );
-          if ( width ) {
-            //Strip of last character if it's a %.
-            if ( width.slice(-1) == '%' ) {
-              width = width.slice(0, -1)
-            }
-            this.setData('width', width);
+          //Width
+          if ( this.element.hasClass( 'admonition-quarter' ) ) {
+            this.setData('width', 'quarter');
           }
+          if ( this.element.hasClass( 'admonition-half' ) ) {
+            this.setData('width', 'half');
+          }
+          if ( this.element.hasClass( 'admonition-full' ) ) {
+            this.setData('width', 'full');
+          }
+          //Alignment
           if ( this.element.hasClass( 'admonition-left' ) ) {
             this.setData('align', 'left');
           }
@@ -81,10 +83,12 @@
          */
         data: function() {
           //Get the icon element.
-          var icon = this.element.find('img.admonition-icon').getItem(0);
+          var icon = this.element.find('img').getItem(0);
           //Remove existing classes, styles, and attributes.
           //Width.
-          this.element.removeAttribute('width');
+          this.element.removeClass( 'admonition-quarter' );
+          this.element.removeClass( 'admonition-half' );
+          this.element.removeClass( 'admonition-full' );
           //Alignment.
           this.element.removeClass( 'admonition-left' );
           this.element.removeClass( 'admonition-right' );
@@ -101,7 +105,7 @@
           }
           //Add new stuff.
           if ( this.data.width ) {
-            this.element.setStyle('width', this.data.width + '%');
+            this.element.addClass('admonition-' + this.data.width);
           }
           if ( this.data.align ) {
             this.element.addClass('admonition-' + this.data.align);
@@ -114,8 +118,9 @@
           if ( icon && this.data.style ) {
             //Show the right icon.
             icon.setAttribute('src', this.path + 'icons/' + this.data.style + '.png')
-                .setAttribute('title', capitalizeFirstLetter(this.data.style));
-            icon.setAttribute('alt', capitalizeFirstLetter(this.data.style));
+                .setAttribute('title', capitalizeFirstLetter(this.data.style))
+                .setAttribute('alt', capitalizeFirstLetter(this.data.style))
+                .addClass('admonition-icon');
           }
         }
       });

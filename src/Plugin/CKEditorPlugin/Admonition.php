@@ -68,31 +68,19 @@ class Admonition extends CKEditorPluginBase {
    *   The Drupal root-relative path to the file, FALSE if an internal plugin.
    */
   public function getFile() {
-    return  drupal_get_path('module', 'admonition')
+    return drupal_get_path('module', 'admonition')
       . '/js/plugins/admonition/plugin.js';
   }
 
   /**
-   * Returns the additions to CKEDITOR.config for a specific CKEditor instance.
-   *
-   * @todo: Config option to show admonition type name below icon.
-   *
-   * The editor's settings can be retrieved via $editor->getSettings(), but be
-   * aware that it may not yet contain plugin-specific settings, because the
-   * user may not yet have configured the form.
-   * If there are plugin-specific settings (verify with isset()), they can be
-   * found at
-   * @code
-   * $settings = $editor->getSettings();
-   * $plugin_specific_settings = $settings['plugins'][$plugin_id];
-   * @endcode
-   *
-   * @param \Drupal\editor\Entity\Editor $editor
-   *   A configured text editor object.
-   * @return array
-   *   A keyed array, whose keys will end up as keys under CKEDITOR.config.
+   * {@inheritdoc}
    */
   public function getConfig(Editor $editor) {
-    return [];
+    $path = drupal_get_path('module', 'admonition') . '/templates/admonition-template.html';
+    $template = file_get_contents($path);
+    if ( $template === FALSE ) {
+      $template = $this->t('Failed to read admonition template.');
+    }
+    return [ 'admonition_template' => $template ];
   }
 }

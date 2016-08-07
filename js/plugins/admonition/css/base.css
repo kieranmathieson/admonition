@@ -6,7 +6,7 @@ div.admonition {
     box-shadow: 2px 2px 1px #eee;
 }
 img.admonition-icon {
-    margin: 0.2rem;
+    margin: 1rem;
     float: left;
 }
 div.admonition-content {
@@ -23,5 +23,13 @@ div.admonition-right {
 div.admonition-center {
     margin: 1rem auto;
 }
-
+div.admonition-quarter {
+    width: 25%;
+}
+div.admonition-half {
+    width: 50%;
+}
+div.admonition-full {
+    width: 95%;
+}
 

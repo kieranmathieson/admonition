@@ -83,10 +83,15 @@
               html: ' &nbsp; '
             },
             {
-              type: 'text',
+              type: 'radio',
               id: 'admonitionWidth',
-              label: 'Width (%)',
-              default: '50',
+              label: 'Display width',
+              items: [
+                ['Quarter', 'quarter'],
+                ['Half', 'half'],
+                ['Full', 'full'],
+              ],
+              default: 'half',
               setup: function( widget ) {
                 if ( ! widget.data.width ) {
                   this.setValue( this.default )
@@ -101,22 +106,10 @@
               // onKeyPress: function(evnt) {
               //   alert('dogfish!');
               // },
-              validate: function() {
-                var value = this.getValue();
-                var dataOk = true;
-                if ( ! value || isNaN( value ) || value < 1 || value > 100 ) {
-                  alert('Sorry, width should be from 1 to 100.');
-                  return false;
-                }
-              }, //End validate
               commit: function( widget ) {
                 widget.setData( 'width', this.getValue() );
               }
             }, //End width field
-            {
-              type: 'html',
-              html: 'Note: 100% doesn\'t work well with many themes. Try 95% instead.'
-            },
             {
               //Space below GUI control. Couldn't get classes to do the job.
               type: 'html',
